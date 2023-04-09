@@ -21,3 +21,6 @@ main {
 .d-none {
 	display: none;
 }
+select.select {
+	width: 100%;
+}

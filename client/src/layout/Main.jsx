@@ -1,5 +1,5 @@
 import React from 'react'
-import WidgetBusByStreets from '../components/widgetBusByStreets'
+import WidgetBusByStreets from '../components/WidgetBusByStreets'
 
 
 const Main = () => {
