@@ -6,19 +6,20 @@ import zeep
 app = FastAPI()
 
 origins = ["http://cuandopasa.sm.com:5173",
-	   			 "https://cuandopasa-eight.vercel.app"
+	   			 "https://cuandopasa-eight.vercel.app",
+	   			 "https://cuandopasa-eight.vercel.app/",
 					 "http://cuandopasa.sm.com",
 					 "http://cuandopasa.sm.com:5173/",
            "cuandopasa.sm.com:5173",
            "cuandopasa.sm.com"]
 
-app.add_middleware(
+""" app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=-True,
     allow_methods=["OPTIONS", "GET", "POST"],
-    allow_headers=["*"],
-)
+    allow_headers=["Origin", "x-api-key"],
+) """
 
 # ZEEP
 zeep_url = "http://clswsantafe.smartmovepro.net/ModuloParadas/SWParadas.asmx?WSDL"
@@ -49,13 +50,13 @@ async def get_arrivals(stop_id: int, line_id: int = 0):
   return client.service.RecuperarProximosArribos(USER, PASS, stop_id, line_id, 24, "SANTA FE", False, False)
   
 #####
-@app.options("/lineas")
+""" @app.options("/lineas")
 def get_headers(response: Response):
 	response.headers['Access-Control-Allow-Credentials'] = "true"
 	response.headers['Access-Control-Allow-Origin'] = "*"
 	response.headers['Access-Control-Allow-Methods'] = "GET, POST, OPTIONS"
 	response.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, X-Auth-Token, x-api-key"
-	return response
+	return response """
 
 
 @app.get("/lineas")
@@ -68,7 +69,7 @@ def read_test():
 
 @app.get("/version")
 def read_version():
-  return "{\"version\": 5}"
+  return "{\"version\": 7}"
 #RecuperarLineaPorLocalidad(USER, PASS, "SANTA FE", "SANTA FE", "ARGENTINA", False)
 #RecuperarCallesPrincipalPorLinea(USER, PASS, line_id, False) line_id = 58 (línea 16)
 #RecuperarInterseccionPorLineaYCalle(USER, PASS, line_id, street_id, False)
