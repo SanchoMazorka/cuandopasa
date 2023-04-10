@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { contextFromSOAP } from '../context/ServiceContext'
-import Droplist from './DropList'
+import Droplist from './Droplgitist'
 import ArrivalDsiplay from './ArrivalDsiplay'
 
 
