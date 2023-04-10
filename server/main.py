@@ -13,13 +13,13 @@ origins = ["http://cuandopasa.sm.com:5173",
            "cuandopasa.sm.com:5173",
            "cuandopasa.sm.com"]
 
-""" app.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=-True,
     allow_methods=["OPTIONS", "GET", "POST"],
     allow_headers=["Origin", "x-api-key"],
-) """
+)
 
 # ZEEP
 zeep_url = "http://clswsantafe.smartmovepro.net/ModuloParadas/SWParadas.asmx?WSDL"
@@ -31,6 +31,7 @@ PASS = "PAR.SW.MUNICSTAFE"
 #####
 @app.get("/lines")
 async def get_lines():
+  #response.headers['Access-Control-Allow-Origin'] = "https://cuandopasa-eight.vercel.app"
   return client.service.RecuperarLineaPorLocalidad(USER, PASS, "SANTA FE", "SANTA FE", "ARGENTINA", False)
 
 @app.get("/streets/{line_id}")
@@ -69,7 +70,7 @@ def read_test():
 
 @app.get("/version")
 def read_version():
-  return "{\"version\": 7}"
+  return "{\"version\": 0.9}"
 #RecuperarLineaPorLocalidad(USER, PASS, "SANTA FE", "SANTA FE", "ARGENTINA", False)
 #RecuperarCallesPrincipalPorLinea(USER, PASS, line_id, False) line_id = 58 (línea 16)
 #RecuperarInterseccionPorLineaYCalle(USER, PASS, line_id, street_id, False)

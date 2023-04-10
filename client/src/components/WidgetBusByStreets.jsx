@@ -23,7 +23,7 @@ const WidgetBusByStreets = () => {
 	const [StopID, setStopID] = useState(-1)
 
 	const requestData = async (endpoint) => {
-		return fetch(`http://localhost:8000/${endpoint}`, {method:'GET',	redirect:'follow'})
+		return fetch(`https://server-1-k3946374.deta.app/${endpoint}`, {method:'GET',	redirect:'follow'})
   };
 	
 	const sortData = (data, field) => {
