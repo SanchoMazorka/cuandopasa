@@ -7,15 +7,19 @@ const ServiceContext = ({ children }) => {
 	const initialContext = { DataLines }
 
 	useEffect(() => {
+		var myHeaders = new Headers();
+		//myHeaders.append("x-api-key", "e0Bebwq4eSnf_VY4ACkePfxMCwoomwzuZUn3cafaKkYY7");
+		myHeaders.append("Origin", document.referrer.substring(0,document.referrer.length-1));
+		myHeaders.append("Host", "server-1-k3946374.deta.app");
 		
 		var requestOptions = {
 			method: 'GET',
-			//headers: myHeaders,
+			headers: myHeaders,
 			//redirect:'follow'			
 		};
 		
 		//fetch("http://localhost:8000/lineas", {method:'GET', redirect:'follow'})
-		fetch("https://server-1-k3946374.deta.app/lineas", requestOptions)
+		fetch("https://server-1-k3946374.deta.app/lines", requestOptions)
 			.then(response => response.json())
 			.then(result => {
 				console.log("FETCH: ServiceContext")

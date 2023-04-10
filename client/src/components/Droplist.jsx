@@ -1,7 +1,7 @@
 
 import React from "react";
 
-const Droplist = ({nameData, valueData, textData, data, callback}) => {
+const Droplist = ({nameData, hint, valueData, textData, data, callback}) => {
 
 	console.log("Droplist: " + nameData)
 	
@@ -11,7 +11,7 @@ const Droplist = ({nameData, valueData, textData, data, callback}) => {
 	
 	return (
 		<select className="select" name={nameData} id={"id_" + nameData} onChange={handleChange}>
-		<option className="d-none" selected>SELECCIONAR LÍNEAS</option>
+		<option className="d-none" selected>{hint}</option>
 		{
 			data.map( (item, index) => {
 				return ( 

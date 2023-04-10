@@ -8,7 +8,7 @@ const Countdown = ({time}) => {
 	useEffect(() => {
 		
 		if (Minutes<=5) setAlert(" red")
-		if (Minutes) setTimeout(() => setMinutes(min => min-1), 1000);
+		if (Minutes) setTimeout(() => setMinutes(min => min-1), 1000*60);
 	}, [Minutes])
 	
 	return (

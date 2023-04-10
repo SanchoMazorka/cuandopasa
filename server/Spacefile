@@ -5,4 +5,7 @@ micros:
     src: ./
     engine: python3.9
     primary: true
-    public: true
+    public_routes:
+      - "*"
+    presets:
+      api_keys: false

@@ -23,7 +23,17 @@ const WidgetBusByStreets = () => {
 	const [StopID, setStopID] = useState(-1)
 
 	const requestData = async (endpoint) => {
-		return fetch(`https://server-1-k3946374.deta.app/${endpoint}`, {method:'GET',	redirect:'follow'})
+		var myHeaders = new Headers();
+		//myHeaders.append("x-api-key", "e0Bebwq4eSnf_VY4ACkePfxMCwoomwzuZUn3cafaKkYY7");
+		myHeaders.append("Origin", document.referrer.substring(0,document.referrer.length-1));
+		myHeaders.append("Host", "server-1-k3946374.deta.app");
+		
+		var requestOptions = {
+			method: 'GET',
+			headers: myHeaders,
+			//redirect:'follow'			
+		};
+		return fetch(`https://server-1-k3946374.deta.app/${endpoint}`, requestOptions)
   };
 	
 	const sortData = (data, field) => {
@@ -80,14 +90,16 @@ const WidgetBusByStreets = () => {
 	const getArrivals = async (stop_id, line_id=0) => {
 		//console.log("SELECT: getPath")
 		setStopID(stop_id)
+		let api_response = requestData(`arrivals/${stop_id}/${LineID}`)
 		//let api_response = requestData(`arrivals/${stop_id}/${line_id||LineID}`)
-		let api_response = requestData(`test-arribo`)
+		//let api_response = requestData(`test-arribo`)
 		api_response.then(response => response.json())
 		.then(result => {
 			//console.log(`FETCH CONCRETADO: /paths/${LineID}/${StreetID}/${intersection_id}`)
-			console.log(result)
-			let json = JSON.parse(result)["arribos"]
-			setDataArrivals(json)
+			console.info(result)
+			let json = JSON.parse(result)
+			if (json.CodigoEstado==-1) {json = JSON.parse('{"arribos": []}')}
+			setDataArrivals(json.arribos)
 			setArrivalsBool(true)
 		})
 		.catch(error => console.log('error', error));
@@ -95,14 +107,14 @@ const WidgetBusByStreets = () => {
 
 	return (
 		<>
-			<input type="button" value="OBTENER" onClick={() => getArrivals(25000)}/>
-			{ DataLines.length>0 && <Droplist nameData="line" valueData="CodigoLineaParada" textData="Descripcion" data={DataLines} callback={getMainStreet} />}
+			{false && <input type="button" value="OBTENER" onClick={() => getArrivals(25000)}/>}
+			{ DataLines.length>0 && <Droplist nameData="line" hint="SELECCIONAR LÍNEA" valueData="CodigoLineaParada" textData="Descripcion" data={DataLines} callback={getMainStreet} />}
 			<br />
-			{ StreetsBool && <Droplist nameData="mainStreet" valueData="Codigo" textData="Descripcion" data={DataStreets} callback={getIntersectionStreet} />}
+			{ StreetsBool && <Droplist nameData="mainStreet" hint="SELECCIONAR CALLE" valueData="Codigo" textData="Descripcion" data={DataStreets} callback={getIntersectionStreet} />}
 			<br />
-			{ IntersectionsBool && <Droplist nameData="intersectionStreet" valueData="Codigo" textData="Descripcion" data={DataIntersections} callback={getStops} />}
+			{ IntersectionsBool && <Droplist nameData="intersectionStreet" hint="SELECCIONAR INTERSECCIÓN" valueData="Codigo" textData="Descripcion" data={DataIntersections} callback={getStops} />}
 			<br />
-			{ StopsBool && <Droplist nameData="intersectionStreet" valueData="Codigo" textData="Descripcion" data={DataStops} callback={getArrivals} />}
+			{ StopsBool && <Droplist nameData="intersectionStreet" hint="SELECCIONAR PARADA" valueData="Identificador" textData="Descripcion" data={DataStops} callback={getArrivals} />}
 			<br />
 			{ ArrivalsBool && <ArrivalDsiplay data={DataArrivals} /> }
 		</>

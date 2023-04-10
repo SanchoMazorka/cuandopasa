@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
 import zeep
 
@@ -6,19 +6,15 @@ import zeep
 app = FastAPI()
 
 origins = ["http://cuandopasa.sm.com:5173",
-	   			 "https://cuandopasa-eight.vercel.app",
-	   			 "https://cuandopasa-eight.vercel.app/",
-					 "http://cuandopasa.sm.com",
-					 "http://cuandopasa.sm.com:5173/",
-           "cuandopasa.sm.com:5173",
-           "cuandopasa.sm.com"]
+           "https://cuandopasa-eight.vercel.app",
+          ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=-True,
+    allow_credentials=-False,
     allow_methods=["OPTIONS", "GET", "POST"],
-    allow_headers=["Origin", "x-api-key"],
+    allow_headers=["*"],
 )
 
 # ZEEP
@@ -48,17 +44,8 @@ async def get_stops(line_id: int, street_id: int, intersection_id: int):
 
 @app.get("/arrivals/{stop_id}/{line_id}")
 async def get_arrivals(stop_id: int, line_id: int = 0):
-  return client.service.RecuperarProximosArribos(USER, PASS, stop_id, line_id, 24, "SANTA FE", False, False)
+  return client.service.RecuperarProximosArribos(USER, PASS, str(stop_id), line_id, 24, "SANTA FE", False, False)
   
-#####
-""" @app.options("/lineas")
-def get_headers(response: Response):
-	response.headers['Access-Control-Allow-Credentials'] = "true"
-	response.headers['Access-Control-Allow-Origin'] = "*"
-	response.headers['Access-Control-Allow-Methods'] = "GET, POST, OPTIONS"
-	response.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, X-Auth-Token, x-api-key"
-	return response """
-
 
 @app.get("/lineas")
 def get_lines_mock():
@@ -70,19 +57,10 @@ def read_test():
 
 @app.get("/version")
 def read_version():
-  return "{\"version\": 0.9}"
+  return "{\"version\": 0.9.2}"
+
 #RecuperarLineaPorLocalidad(USER, PASS, "SANTA FE", "SANTA FE", "ARGENTINA", False)
 #RecuperarCallesPrincipalPorLinea(USER, PASS, line_id, False) line_id = 58 (línea 16)
 #RecuperarInterseccionPorLineaYCalle(USER, PASS, line_id, street_id, False)
 #RecuperarParadasPorLineaCalleEInterseccion(USER, PASS, line_id, street_id, intersection_id, False, False)
 #RecuperarProximosArribos
-
-	# let s = {"paradas":[{
-	# 	"Codigo":"10580",
-	# 	"Identificador":"83277",
-	# 	"Descripcion":"PARADA L 16",
-	# 	"CallePrincipal":"",
-	# 	"CalleInterseccion":"",
-	# 	"Latitud":null,
-	# 	"Longitud":null,
-	# 	"Lineas":""}]}
