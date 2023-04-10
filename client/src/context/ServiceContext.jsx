@@ -10,13 +10,13 @@ const ServiceContext = ({ children }) => {
 		//fetch("http://localhost:8000/lineas", {method:'GET', redirect:'follow'})
 		var myHeaders = new Headers();
 		myHeaders.append("x-api-key", "e0Bebwq4eSnf_VY4ACkePfxMCwoomwzuZUn3cafaKkYY7")
-		myHeaders.append("Host", "server-1-k3946374.deta.app")
-		myHeaders.append("Origin", "http://localhost:5173")
+		//myHeaders.append("Host", "server-1-k3946374.deta.app")
+		//myHeaders.append("Origin", "http://localhost:5173")
 
 		var requestOptions = {
 			method: 'GET',
 			headers: myHeaders,
-			redirect:'follow'			
+			//redirect:'follow'			
 		};
 		
 		fetch("https://server-1-k3946374.deta.app/lineas", requestOptions)
