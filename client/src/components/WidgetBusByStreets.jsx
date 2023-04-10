@@ -1,18 +1,19 @@
 import { useContext, useState } from 'react'
 import { contextFromSOAP } from '../context/ServiceContext'
-import Droplist from './Droplist';
+import Droplist from './DropList'
+import ArrivalDsiplay from './ArrivalDsiplay'
+
 
 const WidgetBusByStreets = () => {
 	const { DataLines } = useContext(contextFromSOAP)
-	
-	
 	const [DataStreets, setDataStreets] = useState(Array(0))
-	const [StreetsBool, setStreetsBool] = useState(false)
 	const [DataIntersections, setDataIntersections] = useState(Array(0))
-	const [IntersectionsBool, setIntersectionsBool] = useState(false)
 	const [DataStops, setDataStops] = useState(Array(0))
-	const [StopsBool, setStopsBool] = useState(false)
 	const [DataArrivals, setDataArrivals] = useState(Array(0))
+	
+	const [StreetsBool, setStreetsBool] = useState(false)
+	const [IntersectionsBool, setIntersectionsBool] = useState(false)
+	const [StopsBool, setStopsBool] = useState(false)
 	const [ArrivalsBool, setArrivalsBool] = useState(false)
 	
 	const [LineID, setLineID] = useState(0)
@@ -94,6 +95,7 @@ const WidgetBusByStreets = () => {
 
 	return (
 		<>
+			<input type="button" value="OBTENER" onClick={() => getArrivals(25000)}/>
 			{ DataLines.length>0 && <Droplist nameData="line" valueData="CodigoLineaParada" textData="Descripcion" data={DataLines} callback={getMainStreet} />}
 			<br />
 			{ StreetsBool && <Droplist nameData="mainStreet" valueData="Codigo" textData="Descripcion" data={DataStreets} callback={getIntersectionStreet} />}
@@ -102,7 +104,7 @@ const WidgetBusByStreets = () => {
 			<br />
 			{ StopsBool && <Droplist nameData="intersectionStreet" valueData="Codigo" textData="Descripcion" data={DataStops} callback={getArrivals} />}
 			<br />
-			{ ArrivalsBool && <div>ARRIBOS CARGADOS</div>}
+			{ ArrivalsBool && <ArrivalDsiplay data={DataArrivals} /> }
 		</>
 	)
 }

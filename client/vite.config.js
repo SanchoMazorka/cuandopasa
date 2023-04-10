@@ -6,4 +6,7 @@ export default defineConfig({
   plugins: [react({
 		include: "*.*",
 	})],
+	server: {
+    host: 'cuandopasa.sm.com',
+  },
 })

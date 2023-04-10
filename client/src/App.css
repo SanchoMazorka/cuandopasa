@@ -24,3 +24,18 @@ main {
 select.select {
 	width: 100%;
 }
+
+.arrivalContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.arrival {
+	display: flex;
+}
+.time {
+	margin-left: 1rem;
+}
+.time.red {
+	color: red;
+}
