@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
-import zeep
+from zeep import Client
+#from zeep.cache import SqliteCache
+#from zeep.transports import Transport
+
 
 # FASTAPI
 app = FastAPI()
@@ -18,11 +21,15 @@ app.add_middleware(
 )
 
 # ZEEP
-zeep_url = "http://clswsantafe.smartmovepro.net/ModuloParadas/SWParadas.asmx?WSDL"
-client = zeep.Client(zeep_url)
+#transport = Transport(cache=SqliteCache())
+#client = Client('http://clswsantafe.smartmovepro.net/ModuloParadas/SWParadas.asmx?WSDL', transport=transport)
+client = Client('http://clswsantafe.smartmovepro.net/ModuloParadas/SWParadas.asmx?WSDL')
 
 USER = "WEB.MUNICSTAFE"
 PASS = "PAR.SW.MUNICSTAFE"
+
+#
+counter = 0
 
 #####
 @app.get("/lines")
@@ -57,7 +64,13 @@ def read_test():
 
 @app.get("/version")
 def read_version():
-  return "{\"version\": 0.9.2}"
+  return "{\"version\": 0.9.5}"
+	
+@app.get("/queries")
+def read_queries():
+	global counter
+	counter = counter + 1
+	return counter	
 
 #RecuperarLineaPorLocalidad(USER, PASS, "SANTA FE", "SANTA FE", "ARGENTINA", False)
 #RecuperarCallesPrincipalPorLinea(USER, PASS, line_id, False) line_id = 58 (línea 16)
