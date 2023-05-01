@@ -52,7 +52,7 @@ select {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 1rem;
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 }
 .selectContainer label {
 	font-size: 12px;
@@ -69,15 +69,10 @@ select {
 .f-jc-sb{
 	justify-content: space-between;
 }
-.c-red {
-	color: red;
-}
-.c-green {
-	color: limegreen;
-}
-.c-logo {
-	color: #FFC72C
-}
+.c-red { color: red; }
+.c-gray {	color: grey; }
+.c-green { color: limegreen; }
+.c-logo { color: #FFC72C }
 
 
 /* - - - - - - - */
@@ -144,6 +139,7 @@ select {
 /* #5AAF61 */
 
 .material-icons-outlined {
+	font-size: 16px;
 	user-select: none;
 	cursor: pointer;
 }

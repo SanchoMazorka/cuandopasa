@@ -5,12 +5,13 @@ const Countdown = ({time}) => {
 	const [Alert, setAlert] = useState("")	
 
 	useEffect(() => {
-		if (Minutes<=5) setAlert(" red")
-		if (Minutes) setTimeout(() => setMinutes(min => min-1), 1000);
+		if (Minutes<=5) setAlert("red")
+		if (Minutes<0) return
+		if (Minutes) setTimeout(() => setMinutes(min => min-1), 1000*60);
 	}, [Minutes])
 	
 	return (
-		<span className={"time"+Alert}>ARRIBANDO EN {Minutes} MINUTOS.</span>
+		<span className={Alert}>{Minutes<=0?"ARRIBANDO":`PASA EN ${Minutes} MINUTOS.`}</span>
 	)
 }
 

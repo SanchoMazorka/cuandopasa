@@ -1,52 +1,22 @@
-import {useContext} from 'react'
-import Countdown from './Countdown'
+import {useContext, useState, useEffect} from 'react'
+import ArrivalItem from './ArrivalItem'
+import useEndpoint from '../api/useEndpoint'
 import { contextFromSOAP } from '../context/ServiceContext'
 
-const ArrivalDisplay = ({data}) => {
-	const timestamp = Date.now();
+const ArrivalDisplay = ({endpoint}) => {
+	const {data, loading, error, fetchData} = useEndpoint(endpoint)
 	const { Favs } = useContext(contextFromSOAP)
-	//data = [1,2]
+	const [dt, setDT] = useState(new Date())
+	const timestamp = Date.now();
+	//data = []
+	console.log(data)
 	return(
 		<>
-		{data.length? data.map((item, index) => { return( 
-		<div key={`${timestamp}${index}`} className="arrivalContainer1">
-			<div className="squareFlag">
-				<span>{item.DescripcionBandera}</span>
-			</div>
-			<div className="arrivalData">
-				<Countdown time={item.Arribo.split(" ")[0]}></Countdown>
-				<span>Hora aproximada 15:50</span>
-			</div>
-		</div>)})
+		{data.length? 
+		data.map((item, index) => <ArrivalItem key={`${timestamp}${index}`} Description={item.DescripcionBandera} Arrival={item.Arribo} DT={dt} />)
 		: <span>NO HAY PRÓXIMOS ARRIBOS</span>}
 		</>
 	)
 }
 
 export default ArrivalDisplay
-
-
-
-
-
-/* 	return ( 
-		<div>
-			<span className="stopId">PARADA #{stop_id}</span>
-
-			{data.length ? data.map((item, index) => {
-				return (<div key={`${timestamp}${index}`} className="arrivalContainer1">
-					<div className="squareFlag">
-						<span>{item.DescripcionBandera}</span>
-					</div>
-					<div className="arrivalData">
-						<span>ARRIBANDO EN 13 MINUTOS.</span>
-						<span></span>
-					</div>
-					<div className="arrivalFavs">
-						<span className="material-icons-outlined">favorite_border</span>
-					</div>
-				</div>)
-			})
-			: <span>NO HAY PRÓXIMOS ARRIBOS</span>}
-		</div>
-	) */

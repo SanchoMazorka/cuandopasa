@@ -1,12 +1,17 @@
-import { useEndpoint } from "./config"
+import { useEndpoint } from "./useEndpoint"
 
 export const Cuandopasa = {
-	lines: (t) => {
+	lines:"CodigoLineaParada",
+	streets: "Codigo",
+	intersections: "Codigo",
+	stops: "Identificador"
+}
+/* 	lines: () => {
 		console.log(t)
 		let response = useEndpoint(`lineas`, )
 		response = {...response, "key": "lineas"}
 		return response
-		
+
 	},
 	streets: (line_id) => {
 		let response = useEndpoint(`streets/${line_id}`)
@@ -31,5 +36,4 @@ export const Cuandopasa = {
 		response = {...response, "key": "arribos"}
 		return response
 		
-	}
-}
+	} */
