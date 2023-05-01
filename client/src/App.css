@@ -1,41 +1,145 @@
 * {
 	box-sizing: border-box;
+	outline: none;
+}
+
+#root {
+	max-width: 600px;
+	width: 100%;
 }
 
 body {
 	display: flex;
 	flex-direction: column;
   width: 100%;
-	
   padding: 1rem;
-	border: 1px solid green;
+	background-image: linear-gradient(0deg, black, rgba(0,0,0,.3));
 }
 
+header {
+	margin-bottom: 1rem;
+}
+
+header * {
+	margin: 0;
+	text-align: right;
+}
 main {
-	width: 95vw;
-
+	/* width: 95%; */
 	margin: auto;
-	border: 1px solid red;
 }
-
+select {
+	width: 100%;
+	letter-spacing: 1px;
+}
 .d-none {
 	display: none;
-}
-select.select {
-	width: 100%;
 }
 
 .arrivalContainer {
 	display: flex;
 	flex-direction: column;
 }
-
 .arrival {
 	display: flex;
 }
 .time {
 	margin-left: 1rem;
 }
-.time.red {
+
+/* - - - - - - - */
+.selectContainer {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+	/*border: 1px solid red;*/
+}
+.selectContainer label {
+	font-size: 12px;
+	text-shadow: 0 0 2px rgba(0, 0, 0, .4);
+	color: #FFC72C;
+	user-select: none;
+}
+.divPartIcon {
+	display: flex;
+	gap: 0.3rem;
+}
+
+/* - - - - */
+.f-jc-sb{
+	justify-content: space-between;
+}
+.c-red { color: red; }
+.c-gray {	color: grey; }
+.c-green { color: limegreen; }
+.c-logo { color: #FFC72C }
+
+
+/* - - - - - - - */
+.arrivalContainer1 {
+	display: flex;
+	flex-direction: row;
+	gap: .4em;
+	margin-bottom: 0.5rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid gray;
+}
+.arrivalContainer1:last-child {
+	border: 0;
+}
+
+.squareFlag {
+	display: flex;
+	width: 2rem;
+	height: 2rem;
+	justify-content: center;
+	border-radius: 25%;
+	box-shadow: 0 0 2px 1px rgba(0, 0, 0, .2);
+	background-image: linear-gradient(200deg, #FFC72C, #b38300b8);
+}
+.squareFlag span {
+	width: 2rem;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+.arrivalData {
+	display: flex;
+	flex-direction: column;
+	line-height: 16px;
+	font-weight: bold;
+
+}
+.arrivalData span:first-child {
+	line-height: 16px;
+	font-weight: bold;
+}
+.arrivalData span:last-child {
+	color: tomato;
+  font-size: 12px;
+}
+.arrivalFavs {
+	display: flex;
+	margin-left: 1.5rem;
+}
+.arrivalFavs span {
+	height: fit-content;
+	font-size: 16px;
 	color: red;
+}
+
+.stopId {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+
+/* #5AAF61 */
+
+.material-icons-outlined {
+	font-size: 16px;
+	user-select: none;
+	cursor: pointer;
 }

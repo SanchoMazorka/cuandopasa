@@ -1,24 +1,32 @@
+import React, { useEffect, useState } from "react";
 
-import React from "react";
+const Droplist = ({data, CK, callback, refHook, reset}) => {
+	const [selected, setSelected] = useState("-1")
+	const timestamp = Date.now();
 
-const Droplist = ({nameData, hint, valueData, textData, data, callback}) => {
-
-	console.log("Droplist: " + nameData)
-	
 	const handleChange = event => {
+		reset()
+		setSelected(event.target.value)
 		callback(event.target.value)
   }
 	
+	useEffect(() => {
+		if (data.length==1)
+			handleChange({ target: { value: data[0][CK.value] } })
+	}, [data])
+	
 	return (
-		<select className="select" name={nameData} id={"id_" + nameData} onChange={handleChange}>
-		<option className="d-none" selected>{hint}</option>
-		{
-			data.map( (item, index) => {
-				return ( 
-					<option key={index} value={item[valueData]}>{ item[textData].split(" - ")[0] }</option> )
-			})
-		}
-	</select> 
+		<select ref={refHook} className="select" id={`id_${timestamp}`} value={selected} onChange={handleChange} disabled={typeof(data)=="number"||!data.length?true:false}>
+			<option className="d-none" value="-1">{data==-1?"ERROR, POSIBLEMENTE SIN INTERNET":"SELECCIONAR"}</option>
+			{data.length>0 && data.map((item, index) => {
+				return(
+					<option key={`${timestamp}${index}`} value={item[CK.value]} > {/* defaultValue={(data.length==2&&index==1)} */}
+						{ item["Descripcion"].split(" - ")[0] }
+					</option> )
+				})
+			}
+		</select> 
+		// { failed?<span className="material-icons-outlined">refresh</span>:<></> }
 	)
 }
 
